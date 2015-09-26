@@ -1,0 +1,21 @@
+@import "sprite";
+@import "sprite-svg";
+@import "sprite-svg-fallback";
+
+@import "../../src/svg-icons/blocks/svg-icon/svg-icon";
+
+body {
+  margin: 0;
+}
+
+h1{
+  background-color: red;
+  color: #fff;
+  padding: 10px;
+}
+
+.test-sprite-mixins-icon {
+  display: inline-block;
+  vertical-align: middle;
+  @include sprite('shrink');
+}

@@ -1,0 +1,33 @@
+.no-svg {
+    .svg-icon {
+        background-image: url("/assets/svgs/sprite-svg-fallback.png");
+
+        
+        &_type_enlarge {
+            background-position: 0px 0px;
+            width: 32px;
+            height: 32px;
+        }
+        
+        &_type_enlarge2 {
+            background-position: -32px 0px;
+            width: 32px;
+            height: 32px;
+        }
+        
+        &_type_shrink {
+            background-position: -64px 0px;
+            width: 32px;
+            height: 32px;
+        }
+        
+        &_type_shrink2 {
+            background-position: -96px 0px;
+            width: 32px;
+            height: 32px;
+        }
+        
+    }
+}
+
+

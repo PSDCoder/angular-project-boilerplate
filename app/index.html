@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="project">
+<head>
+    <meta charset="UTF-8">
+    <title>Hitrockgames website</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="fragment" content="!" />
+
+    <!-- build:css /<%= config.paths.destAssetsRelative %>/<%= config.paths.src.scss.outputFilename %> -->
+        <!-- inject:css (assets/**/*.css) -->
+        
+        <!-- endinject -->
+    <!-- endbuild -->
+    <link rel="stylesheet" href="/assets/main.css"/>
+</head>
+<body>
+    <div ng-include="'/src/project/views/partials/test.html'"></div>
+    <img src="/assets/images/innerFolder/canberra_hero_image.jpg" alt=""/>
+    <!-- build:js /<%= config.paths.destAssetsRelative %>/<%= config.paths.src.js.vendors.outputFilename %> defer-->
+        <!-- inject:js:bower -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/lodash/lodash.js"></script>
+        <!-- endinject -->
+    <!-- endbuild -->
+    <!-- build:js /<%= config.paths.destAssetsRelative %>/<%= config.paths.src.js.app.outputFilename %> defer-->
+        <!-- inject:js:app (src/**/*.module.js) -->
+        <script src="src/project/project.module.js"></script>
+        <script src="src/svg-icons/svg-icons.module.js"></script>
+        <script src="src/templates/templates.module.js"></script>
+        <!-- endinject -->
+        <!-- inject:js:app (src/**/*.!(module).js) -->
+        <script src="src/project/filters/test.filter.js"></script>
+        <script src="src/project/services/test.provider.js"></script>
+        <script src="src/svg-icons/blocks/svg-icon/svg-icon.directice.js"></script>
+        <script src="src/svg-icons/services/SvgIcons.provider.js"></script>
+        <!-- endinject -->
+    <!-- endbuild -->
+    <script src="/<%= config.paths.destAssetsRelative %>/<%= config.paths.src.templates.outputFilename %>" defer></script>
+</body>
+</html>
