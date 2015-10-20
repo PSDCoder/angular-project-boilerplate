@@ -49,7 +49,6 @@
     "gulp-watch": "^4.3.5",
     "gulp.spritesmith": "4.1.0",
     "imagemin-pngquant": "4.2.0",
-    "jasmine-core": "2.3.4",
     "jshint-stylish": "^2.0.1",
     "karma": "0.13.10",
     "karma-phantomjs-launcher": "0.2.1",
