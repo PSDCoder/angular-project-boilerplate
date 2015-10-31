@@ -19,6 +19,7 @@ module.exports = function (gm) {
     var app = path.join(rootPath, 'app');
     var assets = path.join(app, 'assets');
     var src = path.join(app, 'src');
+    var test = path.join(rootPath, 'test');
 
     return {
         ENVIRONMENTS: ENVIRONMENTS,
@@ -73,10 +74,18 @@ module.exports = function (gm) {
                     }
                 },
                 scss: {
-                    input: path.join(assets, 'styles', 'main.scss'),
-                    inputWatch: path.join(assets, 'styles', '*.*'),
-                    output: destAssets,
-                    outputFilename: 'main.css'
+                    main: {
+                        input: path.join(assets, 'styles', 'main.scss'),
+                        inputWatch: [
+                            path.join(assets, 'styles', '*.*'),
+                            path.join(src, '**', '*.scss')
+                        ],
+                        output: destAssets,
+                        outputFilename: 'main.css'
+                    },
+                    vendors: {
+                        outputFilename: 'vendors.css'
+                    }
                 },
                 images: {
                     raster: {
@@ -183,7 +192,65 @@ module.exports = function (gm) {
                 manifestFileName: 'revision-manifest.json',
                 addHash: ['css', 'js', 'map', 'png', 'jpg', 'jpeg', 'gif', 'svg'],
                 replaceIn: ['html', 'css', 'js']
+            },
+            test: {
+                watch: {
+                    rebuild: [
+                        path.join(src, '**', '**/*.module.js'),
+                        path.join(src, '**', '!(*.module|*.spec).js')
+                    ],
+                    refresh: [
+                        path.join(test, 'phantomjs-extending.js'),
+                        path.join(test, 'global.js'),
+                        path.join(src, '**', '*.spec.js')
+                    ]
+                },
+                karmaConfig: {
+                    basePath: '',
+                    files: transformPatterns([
+                        path.join(rootPath, 'node_modules/phantomjs-polyfill/bind-polyfill.js'),
+                        path.join(test, 'phantomjs-extending.js'),
+                        path.join(test, 'global.js'),
+                        path.join(destAssets, 'vendors.js'),
+                        path.join(app, 'bower_components/angular-mocks/angular-mocks.js'),
+                        path.join(destAssets, 'templates.js'),
+                        path.join(destAssets, 'app.js'),
+                        path.join(src, '**', '*.spec.js')
+                    ])
+                    .concat([
+                        //static
+                        {
+                            pattern: path.join(destAssets, '/**/*.+(png|jpg|jpeg|svg)'),
+                            included: false,
+                            served: true,
+                            watched: false,
+                            nocache: true
+                        }
+                    ]),
+                    proxies: {
+                        '/assets/': path.join(destAssets, '/')
+                    },
+                    frameworks: ['mocha', 'chai', 'sinon'],
+                    browsers: ['PhantomJS'],
+                    plugins: [
+                        'karma-phantomjs-launcher',
+                        'karma-spec-reporter',
+                        'karma-mocha',
+                        'karma-chai',
+                        'karma-sinon'
+                    ],
+                    reporters: ['spec']
+                }
             }
         }
     };
 };
+
+function transformPatterns(array) {
+    return array.map(function (pattern) {
+        return {
+            pattern: pattern,
+            watched: false
+        };
+    });
+}

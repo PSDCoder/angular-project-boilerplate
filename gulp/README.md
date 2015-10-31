@@ -14,6 +14,7 @@
     }
 
     if (file.isBuffer()) {
+        console.log(file.path);
         console.log(file.contents.toString('utf8'));
         cb(null, file);
     }

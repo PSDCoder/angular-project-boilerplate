@@ -10,7 +10,7 @@ module.exports = function (gm, gulp, config) {
             'index__copy',
             'js__app-lint',
             ['js__app', 'js__vendors', 'js__templates', 'images'],
-            'scss'
+            ['styles__vendors', 'styles__scss']
         ];
 
         if (config.ENV === config.ENVIRONMENTS.PROD) {

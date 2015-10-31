@@ -9,7 +9,7 @@ module.exports = function (gm, gulp, config) {
             .pipe(htmlHint({ htmlhintrc: config.rcFiles.htmlhintrc }))
             .pipe(htmlHint.reporter())
             .pipe(templateCache(config.paths.src.templates.outputFilename, {
-                standalone: false,
+                standalone: true,
                 templateHeader: 'angular.module(\'<%= module %>\'<%= standalone %>)' +
                     '.run([\'$templateCache\', function($templateCache) {',
                 templateBody: '$templateCache.put(\'<%= url %>\',\'<%= contents %>\');',

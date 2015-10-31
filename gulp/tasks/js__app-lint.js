@@ -11,6 +11,7 @@ module.exports = function (gm, gulp, config) {
             .pipe(plumber())
             .pipe(jshint())
             .pipe(jshint.reporter(stylish))
-            .pipe(jscs());
+            .pipe(jscs())
+            .pipe(jscs.reporter());
     });
 };

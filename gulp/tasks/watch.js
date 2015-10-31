@@ -11,7 +11,7 @@ module.exports = function (gm, gulp, config) {
     gulp.task('watch', function () {
         //HTML
         watch(config.paths.src.html.index.input, function () {
-            runSequence('index__inject', 'index__copy', 'revision', browserSync.reload);
+            runSequence('index__inject', 'index__copy', browserSync.reload);
         });
         watch(config.paths.src.html.templates.input, function () {
             runSequence('js__templates', browserSync.reload);
@@ -40,15 +40,20 @@ module.exports = function (gm, gulp, config) {
                     return path.join(config.paths.app, file);
                 });
                 watch(globs, function () {
-                    runSequence('js__app', browserSync.reload);
+                    runSequence(
+                        ['index__inject', 'index__copy'],
+                        'js__app-lint',
+                        'js__app',
+                        browserSync.reload
+                    );
                 });
             }, function (reason) {
                 console.error(reason);
             });
 
         //SCSS
-        watch(config.paths.src.scss.inputWatch, function () {
-            runSequence('scss', browserSync.reload);
+        watch(config.paths.src.scss.main.inputWatch, function () {
+            runSequence('styles__scss', browserSync.reload);
         });
     });
 };
